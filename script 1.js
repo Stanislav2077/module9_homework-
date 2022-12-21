@@ -1,14 +1,7 @@
+/* Этап 1. Подготовка данных */
+// XML, который мы будем парсить
 
-//JS-объект
-var result = {
-	list: []
-};
-
-//XML-парсер
-const parser = new DOMParser();
-
-//XML
-const xmlEntity = `
+const xmlString = `
 <list>
   <student>
     <name lang="en">
@@ -29,23 +22,43 @@ const xmlEntity = `
 </list>
 `;
 
+/* Этап 2. Получение данных */
+
+function parserXml(strXml) {
+//экземпляр класса DOMParser
+	const parser = new DOMParser();
 //Парсинг XML
-const xmlDOM = parser.parseFromString(xmlEntity, "text/xml");
-const studentsNodes = xmlDOM.querySelectorAll("student");
+	const xmlDOM = parser.parseFromString(strXml, "text/xml");
+//Получение данных
+	const listNodes = xmlDOM.querySelector("list");
+//Получение данных
+	const studentsNodes = listNodes.querySelectorAll("student");
+//Создание переменной объекта с массивом
+	let result = {list: []};
 
-studentsNodes.forEach((element) => {
-	var student = new Object();
-	const studentFirstName = element.querySelector("first");
-	const studentSecondName = element.querySelector("second");
-	const studentAge = element.querySelector("age");
-	const studentProf = element.querySelector("prof");
-	const nameNode = element.querySelector("name");
-	const nameLang = nameNode.getAttribute("lang");
-	student.name = studentFirstName.textContent + ' ' + studentSecondName.textContent;
-	student.age = studentAge.textContent;
-	student.prof = studentProf.textContent;
-	student.lang = nameLang;
-	result.list.push(student);
-});
 
-console.log(result);
+	/* Этап 3. Запись данных в результирующий объект */
+
+	studentsNodes.forEach((element) => {
+		//Создаем объект
+		let student = new Object();
+		let studentFirstName = element.querySelector("first");
+		let studentSecondName = element.querySelector("second");
+		let studentAge = element.querySelector("age");
+		let studentProf = element.querySelector("prof");
+		//создаем, чтобы вытащить оттуда атрибут
+		let nameNode = element.querySelector("name");
+		let nameLang = nameNode.getAttribute("lang");
+
+		student.name = studentFirstName.textContent + ' ' + studentSecondName.textContent;
+		student.age = studentAge.textContent;
+		student.prof = studentProf.textContent;
+		student.lang = nameLang;
+
+		result.list.push(student);
+	});
+
+	console.log(result)
+}
+
+parserXml(xmlString)
