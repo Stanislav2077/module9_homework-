@@ -4,10 +4,9 @@
 	align-items: center;
 }
 
-.limit, .input1, .input2 {
+.limit{
 	width: 30vw;
 	margin: 20px 0px 5px;
-
 }
 
 .error {
@@ -18,8 +17,7 @@
 	color: red;
 }
 
-.card {
-	
+.card {	
 	width: 200px;
 	margin: 20px;
 }
@@ -30,7 +28,7 @@
 	height: 150px;
 }
 
-.btn-request, .btn-request1 {
+.btn-request{
 	width: 30vw;
 	margin-top: 10px;	
 }
